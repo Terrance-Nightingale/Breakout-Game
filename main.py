@@ -21,6 +21,18 @@ while playing:
     screen.update()
     ball.move()
 
+    # Detect if ball hits wall/paddles
+    x_cor = ball.xcor()
+    y_cor = ball.ycor()
+    if x_cor > 280 or x_cor < -280:
+        ball.bounce()
+    elif ball.distance(player) < 50:
+        ball.bounce()
+
+    # Keep track of score
+    if y_cor < -380:
+        ball.reset()
+
     time.sleep(0.09)
 
 screen.exitonclick()
