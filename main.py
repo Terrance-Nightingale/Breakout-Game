@@ -1,7 +1,9 @@
 import time
 from turtle import Screen
 from paddle import Paddle
+from scoreboard import Scoreboard
 from ball import Ball
+from wall import WallManager
 
 screen = Screen()
 screen.setup(width=600, height=800)
@@ -9,9 +11,10 @@ screen.bgcolor("black")
 screen.tracer(0)
 screen.listen()
 
+scoreboard = Scoreboard()
 player = Paddle()
+walls = WallManager()
 ball = Ball()
-ball.seth(225)
 
 screen.onkey(player.move_left, "Left")
 screen.onkey(player.move_right, "Right")
@@ -30,8 +33,9 @@ while playing:
         ball.bounce()
 
     # Keep track of score
-    if y_cor < -380:
-        ball.reset()
+    if y_cor < -380 or y_cor > 380:
+        ball.bounce()
+        #TODO set the ball to reset() instead of bounce(), but only when it hits the -y axis.
 
     time.sleep(0.09)
 

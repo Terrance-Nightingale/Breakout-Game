@@ -12,12 +12,15 @@ class Ball(Turtle):
         self.penup()
         self.shape("circle")
         self.color("white")
+        self.seth(225)
 
     def move(self):
         self.forward(self.move_speed)
 
     def bounce(self):
-        self.right(-90)
+        self.left(90)
+    #TODO Fix the bounce() method rotation error.
+    # Sometimes the ball rotates in a circle before going the proper direction.
 
     def reset(self):
         self.move_speed = 15
