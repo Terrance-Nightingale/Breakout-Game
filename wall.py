@@ -9,16 +9,23 @@ COLOR_LIST = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"]
 
 
 class WallManager:
+    """
+    Holds multiple instances of Wall objects.
+    """
     def __init__(self):
-        wall_list = []
+        self.wall_list = []
         y_position = 0
         for wall_number in range(0, 4):
             new_wall = Wall(y_position)
-            wall_list.append(new_wall)
+            self.wall_list.append(new_wall)
             y_position += 15
 
 
 class Wall:
+    """
+    Holds multiple instances of Piece objects. Color is randomly assigned across the entire
+    wall.
+    """
     def __init__(self, y_position):
         self.wall = []
         x_position = 0
@@ -38,5 +45,3 @@ class Piece(Turtle):
         self.color(color)
         self.sety(START_Y_POS - y_position)
         self.setx(START_X_POS + x_position)
-        print(self.xcor())
-
