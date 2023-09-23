@@ -1,17 +1,15 @@
 from turtle import Turtle
 from paddle import Paddle
 from wall import WallManager
+from scoreboard import Scoreboard
 
 
 class Ball(Turtle):
     """
     Creates a ball.
     """
-
-    def __init__(self, paddle=Paddle, wm=list):
+    def __init__(self):
         super().__init__()
-        self.paddle = paddle
-        self.wall_list = wm
         self.move_speed = 15
         self.penup()
         self.shape("circle")
@@ -38,7 +36,10 @@ class Ball(Turtle):
         self.setpos(0, 0)
         self.setheading(225)
 
-    def detect_hit(self):
+    def detect_hit(self, paddle=Paddle, wm=WallManager, scoreboard=Scoreboard):
+        paddle_r_side = paddle.xcor() + 10
+        paddle_l_side = paddle.xcor() - 10
+
         right_wall = 280
         left_wall = -280
         ceiling = 380
@@ -50,18 +51,21 @@ class Ball(Turtle):
         # Detect hit with top or bottom of screen
         if y_cor < floor or y_cor > ceiling:
             self.ud_bounce()
-
-        # Detect hit with sides or paddle
+        # Detect hit with sides
         if x_cor > right_wall or x_cor < left_wall:
             self.lr_bounce()
-        elif self.distance(self.paddle) < 50:
+        # Detect hit with paddle
+        if self.distance(paddle) < 35 or self.distance(paddle_r_side, -300) < 35\
+                or self.distance(paddle_l_side, -300) < 35:
             self.ud_bounce()
-
         # Detect hit against wall pieces
-        for wall in self.wall_list:
-            for piece in wall.wall:
+        for item in wm.wall_list:
+            wall = item.wall
+            for piece in wall:
                 if self.distance(piece) < 40:
-                    piece_pos = wall.wall.index(piece)
                     self.ud_bounce()
+                    scoreboard.score_point()
+
+                    piece_pos = wall.index(piece)
                     piece.color("black")
-                    del wall.wall[piece_pos]
+                    del wall[piece_pos]
