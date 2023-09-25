@@ -5,8 +5,7 @@ FONT = ("Courier", 30, "normal")
 
 class Scoreboard(Turtle):
     """
-    Sets up scoreboard with Stage number and Score (Score keeps track of the total
-    number of wall pieces hit.
+    A Scoreboard object that keeps track of stage number and score.
     """
 
     def __init__(self):

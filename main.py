@@ -26,6 +26,11 @@ while playing:
     ball.move()
     ball.detect_hit(player, walls, scoreboard)
 
+    if not walls.wall_list:
+        walls.reset()
+        scoreboard.reset()
+        ball.reset()
+
     if ball.ycor() < -380:
         scoreboard.game_over()
         playing = False

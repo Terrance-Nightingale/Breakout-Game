@@ -36,8 +36,6 @@ class WallManager:
             y_position += 15
 
 
-
-
 class Wall:
     """
     Holds multiple instances of Piece objects. Color is randomly assigned across the entire
@@ -53,6 +51,9 @@ class Wall:
 
 
 class Piece(Turtle):
+    """
+    Individual segment of a wall. Is deleted when hit by the ball.
+    """
     def __init__(self, x_position, y_position, color):
         super().__init__()
         self.penup()
