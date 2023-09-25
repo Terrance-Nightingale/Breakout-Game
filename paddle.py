@@ -20,8 +20,10 @@ class Paddle(Turtle):
 
     def move_left(self):
         current_x = self.xcor()
-        self.setx(current_x - 20)
+        if current_x - 70 >= -300:
+            self.setx(current_x - 20)
 
     def move_right(self):
         current_x = self.xcor()
-        self.setx(current_x + 20)
+        if current_x + 70 <= 300:
+            self.setx(current_x + 20)

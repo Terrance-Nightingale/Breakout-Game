@@ -6,18 +6,19 @@ from ball import Ball
 from wall import WallManager
 
 screen = Screen()
+screen.title("Breakout")
 screen.setup(width=600, height=800)
 screen.bgcolor("black")
 screen.tracer(0)
-screen.listen()
 
 scoreboard = Scoreboard()
 player = Paddle()
 walls = WallManager()
 ball = Ball()
 
-screen.onkey(player.move_left, "Left")
-screen.onkey(player.move_right, "Right")
+screen.onkeypress(player.move_left, "Left")
+screen.onkeypress(player.move_right, "Right")
+screen.listen()
 
 playing = True
 while playing:
@@ -25,6 +26,10 @@ while playing:
     ball.move()
     ball.detect_hit(player, walls, scoreboard)
 
-    time.sleep(0.09)
+    if ball.ycor() < -380:
+        scoreboard.game_over()
+        playing = False
+
+    time.sleep(0.03)
 
 screen.exitonclick()

@@ -1,10 +1,9 @@
 from turtle import Turtle
-from random import randint
 
-LENGTH_FACTOR = 4.5
-WIDTH_FACTOR = 0.5
-START_Y_POS = 250
-START_X_POS = -250
+LENGTH_FACTOR = 4.7
+WIDTH_FACTOR = 0.6
+START_Y_POS = 300
+START_X_POS = -255
 COLOR_LIST = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"]
 
 
@@ -15,10 +14,28 @@ class WallManager:
     def __init__(self):
         self.wall_list = []
         y_position = 0
-        for wall_number in range(0, 4):
-            new_wall = Wall(y_position)
+        for color in COLOR_LIST:
+            new_wall = Wall(y_position, color)
             self.wall_list.append(new_wall)
             y_position += 15
+
+    def reset(self):
+        """
+        Clears and redraws walls
+        """
+        # Reset wall starting position and wall list
+        y_position = 0
+        for wall in self.wall_list:
+            for piece in wall.wall:
+                piece.clear()
+        self.wall_list = []
+        # Establish wall list again
+        for color in COLOR_LIST:
+            new_wall = Wall(y_position, color)
+            self.wall_list.append(new_wall)
+            y_position += 15
+
+
 
 
 class Wall:
@@ -26,10 +43,9 @@ class Wall:
     Holds multiple instances of Piece objects. Color is randomly assigned across the entire
     wall.
     """
-    def __init__(self, y_position):
+    def __init__(self, y_position, color):
         self.wall = []
         x_position = 0
-        color = COLOR_LIST[randint(0, len(COLOR_LIST) - 1)]
         for _ in range(0, 6):
             new_piece = Piece(x_position, y_position, color)
             self.wall.append(new_piece)
