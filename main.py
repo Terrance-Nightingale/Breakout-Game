@@ -44,4 +44,4 @@ while playing:
 
     time.sleep(0.03)
 
-screen.exitonclick()
+screen.mainloop()
